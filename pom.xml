@@ -10,6 +10,10 @@
     <packaging>pom</packaging>
     <modules>
         <module>core</module>
+        <module>common</module>
+        <module>dal</module>
+        <module>web</module>
+        <module>model</module>
     </modules>
 
     <properties>
@@ -19,10 +23,19 @@
         <apache.poi.version>5.2.4</apache.poi.version>
         <ooxml-schemas.version>1.4</ooxml-schemas.version>
         <lombok.version>1.18.28</lombok.version>
+        <spring-boot.version>3.1.0</spring-boot.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
