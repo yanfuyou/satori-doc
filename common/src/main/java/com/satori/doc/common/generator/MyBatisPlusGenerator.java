@@ -122,7 +122,7 @@ public class MyBatisPlusGenerator {
                     builder.entityBuilder()
                             .enableLombok()
                             .formatFileName("%sPO")
-                            .addIgnoreColumns("id", "deleted", "create_at", "update_at", "creator", "creator_id", "modifier", "modifier_id");
+                            .addIgnoreColumns("id", "deleted", "create_time", "update_time", "creator", "creator_id", "modifier", "modifier_id");
                     if (this.strategyConfig.fileOverride) {
                         builder.entityBuilder().enableFileOverride();
                     }

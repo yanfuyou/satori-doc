@@ -15,7 +15,7 @@ public class CodeGeneratorTest {
 
         MyBatisPlusGenerator.Builder.StrategyConfig strategyConfig = new MyBatisPlusGenerator
                 .Builder
-                .StrategyConfig("doc", true, new String[]{}, IdAutoOptionalPO.class);
+                .StrategyConfig("paragraph", true, new String[]{}, IdAutoOptionalPO.class);
         MyBatisPlusGenerator generator = new MyBatisPlusGenerator.Builder()
                 .url("jdbc:mysql://64.110.98.55:3306/satori_doc?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true&useInformationSchema=true&allowMultiQueries=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowMultiQueries=true&allowMultiQu-eries=true&allowPublicKeyRetrieval=true&useSSL=false")
                 .name("satori")

@@ -3,42 +3,50 @@ package com.satori.doc.svc.dal.po;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
-import com.satori.doc.model.json.DocConfiguration;
 import com.satori.doc.model.po.IdAutoOptionalPO;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * <p>
- * 文档
+ * 段落
  * </p>
  *
  * @author cat_y
- * @since 2024-05-31
+ * @since 2024-06-01
  */
 @Getter
 @Setter
-@TableName(value = "doc", autoResultMap = true)
-public class DocPO extends IdAutoOptionalPO {
+@TableName("paragraph")
+public class ParagraphPO extends IdAutoOptionalPO {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 文档名称
+     * 所属文档
      */
-    private String name;
+    private Long docId;
 
     /**
-     * 文档类型
+     * 所属标题
      */
-    private Integer type;
+    private Long titleId;
+
+    /**
+     * 段落内容
+     */
+    private String content;
+
+    /**
+     * 排序
+     */
+    private Integer sort;
 
     /**
      * 配置,样式等
      */
     @TableField(value = "configuration", typeHandler = JacksonTypeHandler.class)
-    private DocConfiguration configuration;
+    private String configuration;
 }
