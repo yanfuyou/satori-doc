@@ -14,8 +14,8 @@ import lombok.EqualsAndHashCode;
 public class IdAutoOptionalPO extends IdAutoPO {
     @TableField(value = "creator_id", fill = FieldFill.INSERT)
     private Long creatorId;
-    @TableField(value = "creator_name", fill = FieldFill.INSERT)
-    private String creatorName;
+    @TableField(value = "creator", fill = FieldFill.INSERT)
+    private String creator;
     @TableField(value = "modifier_id", fill = FieldFill.UPDATE)
     private Long modifierId;
 }

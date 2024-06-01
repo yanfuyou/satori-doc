@@ -18,4 +18,7 @@ public class BasePO implements Serializable {
 
     @TableField(value = "create_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    @TableField(value = "deleted")
+    private Boolean deleted;
 }
