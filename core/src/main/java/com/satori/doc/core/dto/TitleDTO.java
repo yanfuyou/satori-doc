@@ -1,4 +1,4 @@
-package com.satori.doc.svc.dto;
+package com.satori.doc.core.dto;
 
 import com.satori.doc.model.json.TitleConfiguration;
 import lombok.Getter;

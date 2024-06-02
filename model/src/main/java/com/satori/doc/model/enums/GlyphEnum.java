@@ -13,10 +13,10 @@ import java.text.DecimalFormat;
 @AllArgsConstructor
 public enum GlyphEnum {
 
-    FIRST(1, "初号", null),
-    TRUMPET(2, "小号", null),
-    NUMBER_ONE(3, "一号", null),
-    TRUMPET_NUMBER_ONE(4, "小一", null),
+    FIRST(1, "初号", 42.0),
+    TRUMPET(2, "小初号", 36.0),
+    NUMBER_ONE(3, "一号", 26.0),
+    TRUMPET_NUMBER_ONE(4, "小一", 24.0),
 
     ;
 
@@ -25,5 +25,5 @@ public enum GlyphEnum {
 
     public final String desc;
 
-    public final BigDecimal pixel;
+    public final Double pixel;
 }

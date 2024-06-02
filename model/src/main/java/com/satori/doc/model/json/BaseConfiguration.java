@@ -1,10 +1,9 @@
 package com.satori.doc.model.json;
 
-import com.satori.doc.model.enums.IndentSpecialEnum;
+import com.satori.doc.model.enums.AlignMethodEnum;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.IdentityHashMap;
 
 /**
  * @author cat_y
@@ -24,6 +23,10 @@ public class BaseConfiguration implements Serializable {
      */
     private IndentConfiguration indentConfiguration;
 
+    /**
+     * 对齐方式
+     */
+    private AlignMethodEnum align;
 
 
 }
