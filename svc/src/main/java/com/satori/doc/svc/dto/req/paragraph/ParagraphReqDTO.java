@@ -1,32 +1,16 @@
-package com.satori.doc.svc.dal.po;
+package com.satori.doc.svc.dto.req.paragraph;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.satori.doc.model.json.ParagraphConfiguration;
-import com.satori.doc.model.po.IdAutoOptionalPO;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import com.satori.doc.model.po.IdAutoPO;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
- * <p>
- * 段落
- * </p>
- *
  * @author cat_y
  * @since 2024-06-01
  */
-@Getter
-@Setter
-@TableName(value = "paragraph",autoResultMap = true)
-public class ParagraphPO extends IdAutoPO {
-
-    private static final long serialVersionUID = 1L;
+@Data
+public class ParagraphReqDTO {
 
     /**
      * 所属文档
@@ -46,7 +30,6 @@ public class ParagraphPO extends IdAutoPO {
     /**
      * 配置,样式等
      */
-    @TableField(value = "configuration", typeHandler = JacksonTypeHandler.class)
     private ParagraphConfiguration configuration;
 
     /**

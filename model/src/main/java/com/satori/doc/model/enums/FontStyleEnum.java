@@ -1,5 +1,6 @@
 package com.satori.doc.model.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 
@@ -12,7 +13,7 @@ public enum FontStyleEnum {
     BOLD(2, "加粗"),
     INCLINE(3, "倾斜"),
     ;
-
+    @EnumValue
     @JsonValue
     public final Integer value;
 

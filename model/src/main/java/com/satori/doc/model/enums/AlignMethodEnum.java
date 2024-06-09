@@ -1,5 +1,6 @@
 package com.satori.doc.model.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 
@@ -18,6 +19,7 @@ public enum AlignMethodEnum {
 
     ;
 
+    @EnumValue
     @JsonValue
     public final Integer value;
 

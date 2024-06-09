@@ -2,6 +2,7 @@ package com.satori.doc.svc.service;
 
 import com.satori.doc.svc.dal.po.ParagraphPO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.satori.doc.svc.dto.req.paragraph.ParagraphReqDTO;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IParagraphService extends IService<ParagraphPO> {
 
+    Long add(ParagraphReqDTO req);
 }

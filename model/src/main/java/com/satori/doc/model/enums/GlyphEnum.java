@@ -1,5 +1,6 @@
 package com.satori.doc.model.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 
@@ -19,7 +20,7 @@ public enum GlyphEnum {
     TRUMPET_NUMBER_ONE(4, "小一", 24.0),
 
     ;
-
+    @EnumValue
     @JsonValue
     public final Integer value;
 

@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 public enum ReplayCode implements ICodeService<Object> {
     SUCCESS("00000", "成功", null),
-    FAIL("50000", "成功", null),
+    FAIL("50000", "失败", null),
 
     ;
 

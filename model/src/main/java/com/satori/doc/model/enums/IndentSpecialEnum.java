@@ -1,5 +1,6 @@
 package com.satori.doc.model.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 
@@ -14,7 +15,7 @@ public enum IndentSpecialEnum {
     OEN_LINE(2, "首行"),
     HANG(2, "悬挂"),
     ;
-
+    @EnumValue
     @JsonValue
     public final Integer value;
     public final String desc;

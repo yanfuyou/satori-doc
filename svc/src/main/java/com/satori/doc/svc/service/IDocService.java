@@ -1,7 +1,9 @@
 package com.satori.doc.svc.service;
 
+import com.satori.doc.model.enums.DocTypeEnum;
 import com.satori.doc.svc.dal.po.DocPO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.satori.doc.svc.dto.resp.doc.DocRespDTO;
 
 /**
  * <p>
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IDocService extends IService<DocPO> {
 
+    Long save(String name, DocTypeEnum type);
+
+    DocRespDTO get(Long id);
 }

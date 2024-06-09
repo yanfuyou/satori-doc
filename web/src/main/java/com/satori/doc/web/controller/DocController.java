@@ -1,36 +1,35 @@
 package com.satori.doc.web.controller;
 
-import com.satori.doc.svc.dal.po.DocPO;
+import com.satori.doc.model.vo.ResultVO;
+import com.satori.doc.svc.dto.resp.doc.DocRespDTO;
 import com.satori.doc.svc.service.IDocService;
+import com.satori.doc.web.model.req.doc.DocAddRequest;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDateTime;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author cat_y
  */
 
+@Api(tags = "文档管理API")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/doc")
 public class DocController {
     private final IDocService docService;
 
-    @GetMapping("/add")
-    public String doc() {
+    @PostMapping("/add")
+    public ResultVO<Long> add(@RequestBody @Validated DocAddRequest request) {
+        return ResultVO.success(docService.save(request.getName(), request.getType()));
+    }
 
-        DocPO docPO = new DocPO();
-//        docPO.setConfiguration("{\"a\":12}");
-        docPO.setType(1);
-        docPO.setName("1");
-        docPO.setCreator("");
-        docPO.setCreateTime(LocalDateTime.now());
-        docPO.setCreatorId(1L);
-        docService.save(docPO);
-        return "suc";
+    @GetMapping("/get/{id}")
+    public ResultVO<?> get(@PathVariable Long id) {
+        DocRespDTO docResp = docService.get(id);
+        System.out.println(docResp);
+        return ResultVO.success();
     }
 
 }

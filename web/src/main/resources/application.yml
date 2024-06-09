@@ -1,2 +1,13 @@
 server:
   port: 8080
+  servlet:
+    context-path: /api/doc
+
+spring:
+  profiles:
+    active: local
+  jackson:
+    date-format: 'yyyy-MM-dd HH:mm:ss'
+    time-zone: 'Asia/Shanghai'
+    serialization:
+      indent-output: true

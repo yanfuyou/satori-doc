@@ -1,5 +1,6 @@
 package com.satori.doc.model.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 
@@ -13,7 +14,7 @@ public enum TitleLevelEnum {
     LEVEL_3(3, "三级"),
     LEVEL_4(4, "四级"),
     ;
-
+    @EnumValue
     @JsonValue
     public final Integer value;
 
