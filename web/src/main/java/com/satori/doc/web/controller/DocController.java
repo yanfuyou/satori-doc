@@ -32,4 +32,9 @@ public class DocController {
         return ResultVO.success();
     }
 
+    @GetMapping("/create/{id}")
+    public ResultVO<String> create(@PathVariable Long id) {
+        String path = docService.create(id);
+        return ResultVO.success(path);
+    }
 }

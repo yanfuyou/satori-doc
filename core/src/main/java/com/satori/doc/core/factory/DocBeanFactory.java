@@ -11,7 +11,6 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 @Data
 public class DocBeanFactory {
 
-    @Getter
-    private static XWPFDocument xwpfDocument = new XWPFDocument();
+    private XWPFDocument xwpfDocument = new XWPFDocument();
 
 }

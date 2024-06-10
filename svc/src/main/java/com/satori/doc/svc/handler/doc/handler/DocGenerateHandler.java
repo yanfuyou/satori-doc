@@ -26,6 +26,7 @@ public class DocGenerateHandler {
         DocPO doc = context.getDoc();
         res.setDocId(doc.getId());
         res.setName(doc.getName());
+        res.setType(doc.getType());
         List<TitlePO> titlePOS = context.getTitleList();
         List<ParagraphPO> paragraphPOS = context.getParagraphList();
         if (CollectionUtils.isEmpty(titlePOS)) {

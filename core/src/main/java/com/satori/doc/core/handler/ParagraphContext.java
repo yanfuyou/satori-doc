@@ -1,7 +1,7 @@
 package com.satori.doc.core.handler;
 
-import com.satori.doc.core.dto.ParagraphDTO;
-import com.satori.doc.core.dto.TitleDTO;
+import com.satori.doc.core.model.Paragraph;
+import com.satori.doc.core.model.Title;
 import com.satori.doc.model.json.BaseConfiguration;
 import lombok.Data;
 
@@ -17,12 +17,12 @@ public class ParagraphContext {
     /**
      * 标题
      */
-    private TitleDTO title;
+    private Title title;
 
     /**
      * 段落
      */
-    private ParagraphDTO paragraph;
+    private Paragraph paragraph;
 
     /**
      * 内容
@@ -39,7 +39,7 @@ public class ParagraphContext {
      */
     private Boolean titleParagraph;
 
-    public static ParagraphContext of(TitleDTO title, ParagraphDTO paragraph) {
+    public static ParagraphContext of(Title title, Paragraph paragraph) {
         ParagraphContext context = new ParagraphContext();
         if (Objects.nonNull(title)) {
             context.setTitle(title);

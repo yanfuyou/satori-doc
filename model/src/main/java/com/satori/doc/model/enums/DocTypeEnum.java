@@ -10,13 +10,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum DocTypeEnum {
 
-    XLSX(1, "wordXlsx", ".xlsx");
+    XLSX(1, "wordXlsx", ".docx");
 
     @JsonValue
     @EnumValue
     public final Integer value;
 
-    private final String name;
+    public final String name;
 
-    private final String suffix;
+    public final String suffix;
 }

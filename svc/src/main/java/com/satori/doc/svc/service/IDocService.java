@@ -18,4 +18,6 @@ public interface IDocService extends IService<DocPO> {
     Long save(String name, DocTypeEnum type);
 
     DocRespDTO get(Long id);
+
+    String create(Long id);
 }

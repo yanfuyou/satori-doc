@@ -1,6 +1,9 @@
 package com.satori.doc.svc.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.satori.doc.core.handler.DocHandler;
+import com.satori.doc.core.model.Doc;
 import com.satori.doc.model.enums.DocTypeEnum;
 import com.satori.doc.model.enums.ErrCodeEnum;
 import com.satori.doc.svc.dal.po.DocPO;
@@ -16,10 +19,11 @@ import com.satori.doc.svc.service.IParagraphService;
 import com.satori.doc.svc.service.ITitleService;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
-import java.sql.Wrapper;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,5 +73,12 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, DocPO> implements IDo
         return DocGenerateHandler.assemble(context);
     }
 
+    @Override
+    public String create(Long id) {
 
+        DocRespDTO docResp = this.get(id);
+        String jsonString = JSON.toJSONString(docResp);
+        Doc doc = JSON.parseObject(jsonString, Doc.class);
+        return DocHandler.generator(doc);
+    }
 }

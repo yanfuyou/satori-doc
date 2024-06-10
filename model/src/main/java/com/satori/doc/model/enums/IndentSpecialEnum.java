@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 public enum IndentSpecialEnum {
     NONE(1, "无"),
     OEN_LINE(2, "首行"),
-    HANG(2, "悬挂"),
+    HANG(3, "悬挂"),
     ;
     @EnumValue
     @JsonValue
