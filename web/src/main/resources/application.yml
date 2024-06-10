@@ -11,3 +11,12 @@ spring:
     time-zone: 'Asia/Shanghai'
     serialization:
       indent-output: true
+  datasource:
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      connection-timeout: 30000
+      max-lifetime: 1800000
+      connection-test-query: SELECT 1
+      validation-timeout: 3000
