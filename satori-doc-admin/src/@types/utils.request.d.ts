@@ -16,7 +16,7 @@ export interface IAxiosRequestConfig extends AxiosRequestConfig {
  * @description: 请求返回数据类型
  */
 export interface IResponseData<T = any> {
-	code: number;
+	code: string;
 	data?: T;
 	msg?: string;
 }

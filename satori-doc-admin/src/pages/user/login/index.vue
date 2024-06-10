@@ -99,7 +99,7 @@ const onSubmit = async () => {
 		</el-form>
 		<!-- <div class="item2">
 			<RouterLink to="/">还没有账户？现在注册！</RouterLink>
-		</div> -->
+		</div>-->
 	</div>
 </template>
 

@@ -68,7 +68,13 @@ export default defineConfig(({ command, mode }) => {
 	}
 
 	// proxy
-	const proxy = {};
+	const proxy = {
+		"/api": {
+			target: "http://127.0.0.1:8080",
+			changeOrigin: true,
+			// rewrite: (path) => path.replace('')
+		}
+	};
 	if (!isBuild) {
 		// 不是生产环境
 		if (VITE_APP_API_URL_PROXY && VITE_APP_API_URL_PROXY !== "") {

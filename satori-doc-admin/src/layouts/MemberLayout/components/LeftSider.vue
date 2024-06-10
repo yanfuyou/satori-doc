@@ -31,12 +31,7 @@ const { menuData, routeItem, userRoles, collapsed } = toRefs(props);
 			</div>
 
 			<div class="member-layout-left-menu">
-				<SiderMenu
-					:menu-data="menuData"
-					:route-item="routeItem"
-					:user-roles="userRoles"
-					:collapsed="collapsed"
-				/>
+				<SiderMenu :menu-data="menuData" :route-item="routeItem" :user-roles="userRoles" :collapsed="collapsed" />
 			</div>
 		</div>
 	</div>

@@ -2,11 +2,11 @@ import { MockMethod } from "vite-plugin-mock";
 const ajaxHeadersTokenKey = "x-token";
 export default [
 	{
-		url: "/api/user/login",
+		url: "/api/doc/user/login",
 		method: "post",
 		response: ({ headers, body }) => {
 			const { password, username } = body;
-			const send = { code: 0, data: {}, msg: "" };
+			const send = { code: "00000", data: {}, msg: "" };
 			if (username === "admin" && password === "123456") {
 				send["data"] = {
 					token: "admin",
@@ -20,19 +20,19 @@ export default [
 					token: "test",
 				};
 			} else {
-				send["code"] = 201;
+				send["code"] = "201";
 				send["msg"] = "Wrong username or password";
 			}
 			return send;
 		},
 	},
 	{
-		url: "/api/user/info",
+		url: "/api/doc/user/info",
 		method: "get",
 		response: ({ headers, body }) => {
 			if (headers[ajaxHeadersTokenKey] === "admin") {
 				return {
-					code: 0,
+					code: "00000",
 					data: {
 						id: 1,
 						name: "Admins-mock",
@@ -42,7 +42,7 @@ export default [
 				};
 			} else if (headers[ajaxHeadersTokenKey] === "user") {
 				return {
-					code: 0,
+					code: "00000",
 					data: {
 						id: 2,
 						name: "Users",
