@@ -55,8 +55,13 @@ const showTitleConf = (index: number) => {
 };
 
 const titleAdd = async (index: number) => {
+	if (index === 0) {
+		dataList.value[index].followId = 0;
+	} else {
+		dataList.value[index].followId = dataList.value[index - 1].id;
+	}
 	const titleRes: IResponseData<any> = await addTitle(dataList.value[index]);
-	console.log(titleRes);
+	dataList.value[index].id = titleRes.data;
 };
 
 const addParagraph = () => {
