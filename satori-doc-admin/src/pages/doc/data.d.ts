@@ -11,6 +11,15 @@ export interface ITitle {
 }
 
 /**
+ * 文档
+ */
+export interface IDoc {
+	id: number;
+	name: string;
+	type: number;
+}
+
+/**
  * 标题配置
  */
 interface TitleConfiguration {
