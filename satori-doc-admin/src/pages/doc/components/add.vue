@@ -1,10 +1,15 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, toRefs } from "vue";
 import type { FormProps } from "element-plus";
 import { Edit, Check, More } from "@element-plus/icons-vue";
 import { addTitle } from "../server";
 import { IResponseData } from "@/@types/utils.request";
 import { ITitle } from "../data";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const { query } = toRefs(route);
+
 const titleVisible = ref(false);
 const labelPosition = ref<FormProps["labelPosition"]>("right");
 const formLabelAlign = reactive({
@@ -30,7 +35,7 @@ const addEle = (type: number) => {
 	componentList.value.push(type);
 	if (type === 1) {
 		dataList.value.push({
-			docId: 1,
+			docId: query.value.docId,
 			content: "",
 			followId: 3,
 			configuration: {
@@ -123,6 +128,7 @@ const glyph = ref([
 
 onMounted(() => {
 	// dataList.value.push(titleForm.value);
+	console.log("docId:", query.value.docId);
 });
 </script>
 <template>

@@ -2,6 +2,9 @@
 import { onMounted, reactive, ref } from "vue";
 import { listAll, addDoc } from "./server";
 import { IDoc } from "./data";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const docDialog = ref(false);
 const docList = ref([]);
@@ -20,9 +23,18 @@ const listDoc = async () => {
 const add = async () => {
 	await addDoc(doc);
 	docDialog.value = false;
+	doc.name = "";
 	listDoc();
 };
 
+const editDoc = (docId: number) => {
+	router.push({
+		name: "editDoc",
+		query: {
+			docId,
+		},
+	});
+};
 onMounted(() => {
 	listDoc();
 });
@@ -35,6 +47,13 @@ onMounted(() => {
 			<el-table-column prop="id" label="id" />
 			<el-table-column prop="name" label="名称" />
 			<el-table-column prop="createTime" label="创建时间" />
+			<el-table-column fixed="right" label="Operations">
+				<template #default="scope">
+					<el-button type="primary" size="small" @click="editDoc(scope.row.id)">编辑</el-button>
+					<el-button type="danger" size="small" @click="editDoc(scope.row.id)">删除</el-button>
+					<el-button type="success" size="small" @click="editDoc(scope.row.id)">导出</el-button>
+				</template>
+			</el-table-column>
 		</el-table>
 		<el-dialog v-model="docDialog" title="文档名称" width="800">
 			<el-input v-model="doc.name" style="width: 240px" placeholder="文档名称" />

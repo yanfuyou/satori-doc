@@ -28,6 +28,7 @@ const MemberLayoutRoutes: RouteRecordRaw[] = [
 				meta: {
 					title: "member-layout.menu.doc.add",
 				},
+				name: "editDoc",
 				path: "add",
 				component: () => import("@/pages/doc/components/add.vue"),
 			},
