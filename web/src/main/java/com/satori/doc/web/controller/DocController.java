@@ -1,13 +1,19 @@
 package com.satori.doc.web.controller;
 
 import com.satori.doc.model.vo.ResultVO;
+import com.satori.doc.svc.dto.resp.doc.DocListRespDTO;
 import com.satori.doc.svc.dto.resp.doc.DocRespDTO;
 import com.satori.doc.svc.service.IDocService;
 import com.satori.doc.web.model.req.doc.DocAddRequest;
+import com.satori.doc.web.model.resp.DocListResponse;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author cat_y
@@ -36,5 +42,17 @@ public class DocController {
     public ResultVO<String> create(@PathVariable Long id) {
         String path = docService.create(id);
         return ResultVO.success(path);
+    }
+
+    @GetMapping("/list/all")
+    public ResultVO<List<DocListResponse>> listAll() {
+        List<DocListRespDTO> dtoList = docService.listAll();
+        List<DocListResponse> respList = new ArrayList<>();
+        dtoList.forEach(dto -> {
+            DocListResponse resp = new DocListResponse();
+            BeanUtils.copyProperties(dto, resp);
+            respList.add(resp);
+        });
+        return ResultVO.success(respList);
     }
 }

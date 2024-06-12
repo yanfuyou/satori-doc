@@ -10,6 +10,7 @@ import com.satori.doc.svc.dal.po.DocPO;
 import com.satori.doc.svc.dal.mapper.DocMapper;
 import com.satori.doc.svc.dal.po.ParagraphPO;
 import com.satori.doc.svc.dal.po.TitlePO;
+import com.satori.doc.svc.dto.resp.doc.DocListRespDTO;
 import com.satori.doc.svc.dto.resp.doc.DocRespDTO;
 import com.satori.doc.svc.handler.doc.context.DocGenerateContext;
 import com.satori.doc.svc.handler.doc.handler.DocGenerateHandler;
@@ -24,6 +25,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,5 +82,18 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, DocPO> implements IDo
         String jsonString = JSON.toJSONString(docResp);
         Doc doc = JSON.parseObject(jsonString, Doc.class);
         return DocHandler.generator(doc);
+    }
+
+    @Override
+    public List<DocListRespDTO> listAll() {
+        List<DocPO> list = this.list(Wrappers.lambdaQuery(DocPO.class)
+                .eq(DocPO::getDeleted, false));
+        List<DocListRespDTO> result = new ArrayList<>();
+        list.forEach(doc -> {
+            DocListRespDTO dto = new DocListRespDTO();
+            BeanUtils.copyProperties(doc, dto);
+            result.add(dto);
+        });
+        return result;
     }
 }
