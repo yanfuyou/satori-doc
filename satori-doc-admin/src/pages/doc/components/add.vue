@@ -2,7 +2,7 @@
 import { onMounted, reactive, ref, toRefs } from "vue";
 import type { FormProps } from "element-plus";
 import { Edit, Check, More } from "@element-plus/icons-vue";
-import { addTitle } from "../server";
+import { addTitle, addParagraph } from "../server";
 import { IResponseData } from "@/@types/utils.request";
 import { ITitle } from "../data";
 import { useRoute } from "vue-router";
@@ -31,6 +31,7 @@ const titleForm = reactive<ITitle>({
 });
 const componentList = ref([]);
 const dataList = ref([]);
+
 const addEle = (type: number) => {
 	componentList.value.push(type);
 	if (type === 1) {
@@ -45,12 +46,31 @@ const addEle = (type: number) => {
 					glyph: 4,
 				},
 			},
+			isTitle: true,
 		});
 	} else {
+		dataList.value.push({
+			id: null,
+			docId: query.value.docId,
+			titleId: null,
+			content: "",
+			configuration: {
+				fontConfiguration: {
+					fontFamily: 1,
+					glyph: 4,
+				},
+				indentConfiguration: {
+					special: 2,
+					indentVal: 4,
+				},
+			},
+			isTitle: false,
+		});
 	}
 };
 const elePop = () => {
 	componentList.value.pop();
+	dataList.value.pop();
 };
 
 const curTitleIndex = ref(null);
@@ -69,8 +89,18 @@ const titleAdd = async (index: number) => {
 	dataList.value[index].id = titleRes.data;
 };
 
-const addParagraph = () => {
-	alert("aaa");
+const paragraphAdd = async (index: number) => {
+	if (index === 0) {
+		dataList.value[index].followId = 0;
+		dataList.value[index].titleId = 0;
+	} else if (dataList.value[index - 1].isTitle) {
+		dataList.value[index].followId = 0;
+		dataList.value[index].titleId = dataList.value[index - 1].id;
+	} else {
+		dataList.value[index].followId = dataList.value[index - 1].id;
+	}
+	const titleRes: IResponseData<any> = await addParagraph(dataList.value[index]);
+	dataList.value[index].id = titleRes.data;
 };
 
 const exportDoc = (id: number) => {
@@ -127,7 +157,6 @@ const glyph = ref([
 ]);
 
 onMounted(() => {
-	// dataList.value.push(titleForm.value);
 	console.log("docId:", query.value.docId);
 });
 </script>
@@ -160,12 +189,12 @@ onMounted(() => {
 						</el-row>
 						<el-row v-else :gutter="5">
 							<el-col :span="20">
-								<el-input v-model="formLabelAlign.name" type="textarea"></el-input>
+								<el-input v-model="dataList[index].content" type="textarea"></el-input>
 							</el-col>
 
 							<el-col :span="4">
 								<!-- 样式 -->
-								<el-button @click="addParagraph" type="success" :icon="Check" circle />
+								<el-button @click="paragraphAdd(index)" type="success" :icon="Check" circle />
 							</el-col>
 						</el-row>
 					</el-form-item>

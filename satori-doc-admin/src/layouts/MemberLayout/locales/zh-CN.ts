@@ -43,5 +43,5 @@ export default {
 
 	"member-layout.menu.doc": "文档管理",
 	"member-layout.menu.doc.list": "文档列表",
-	"member-layout.menu.doc.add": "新建文档"
+	"member-layout.menu.doc.add": "新建文档",
 };

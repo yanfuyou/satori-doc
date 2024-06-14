@@ -1,6 +1,6 @@
 import request from "@/utils/request";
 
-import { ITitle, IDoc } from "./data";
+import { ITitle, IDoc, IParagraph } from "./data";
 
 /**
  *
@@ -32,6 +32,17 @@ export async function listAll(): Promise<any> {
 export async function addDoc(params: IDoc): Promise<any> {
 	return request({
 		url: "/doc/add",
+		method: "POST",
+		data: params,
+	});
+}
+
+/**
+ * 添加段落
+ */
+export async function addParagraph(params: IParagraph) {
+	return request({
+		url: "/paragraph/add",
 		method: "POST",
 		data: params,
 	});
