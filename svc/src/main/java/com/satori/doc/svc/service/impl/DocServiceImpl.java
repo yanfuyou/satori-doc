@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.satori.doc.core.handler.DocHandler;
 import com.satori.doc.core.model.Doc;
+import com.satori.doc.core.model.SavePath;
 import com.satori.doc.model.enums.DocTypeEnum;
 import com.satori.doc.model.enums.ErrCodeEnum;
 import com.satori.doc.svc.dal.po.DocPO;
@@ -76,12 +77,16 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, DocPO> implements IDo
     }
 
     @Override
-    public String create(Long id) {
-
+    public SavePath create(Long id) {
         DocRespDTO docResp = this.get(id);
         String jsonString = JSON.toJSONString(docResp);
         Doc doc = JSON.parseObject(jsonString, Doc.class);
-        return DocHandler.generator(doc);
+        SavePath savePath = DocHandler.generator(doc);
+        this.update(Wrappers.lambdaUpdate(DocPO.class)
+                .set(Objects.nonNull(savePath.getLocalPath()), DocPO::getLocalPath, savePath.getLocalPath())
+                .set(Objects.nonNull(savePath.getOriginPath()), DocPO::getOriginPath, savePath.getOriginPath())
+                .eq(DocPO::getId, id));
+        return savePath;
     }
 
     @Override
@@ -95,5 +100,12 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, DocPO> implements IDo
             result.add(dto);
         });
         return result;
+    }
+
+    @Override
+    public void delLogic(Long id) {
+        this.update(Wrappers.lambdaUpdate(DocPO.class)
+                .set(DocPO::getDeleted, true)
+                .eq(DocPO::getId, id));
     }
 }

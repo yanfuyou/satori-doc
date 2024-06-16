@@ -42,4 +42,14 @@ public class DocPO extends IdAutoOptionalPO {
      */
     @TableField(value = "configuration", typeHandler = JacksonTypeHandler.class)
     private DocConfiguration configuration;
+
+    /**
+     * 本地路径
+     */
+    private String localPath;
+
+    /**
+     * 远程路径
+     */
+    private String originPath;
 }

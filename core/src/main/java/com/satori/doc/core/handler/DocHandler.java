@@ -2,6 +2,7 @@ package com.satori.doc.core.handler;
 
 import com.satori.doc.core.model.Doc;
 import com.satori.doc.core.model.Paragraph;
+import com.satori.doc.core.model.SavePath;
 import com.satori.doc.core.model.Title;
 import com.satori.doc.core.factory.DocBeanFactory;
 import com.satori.doc.model.enums.GlyphEnum;
@@ -33,7 +34,7 @@ public class DocHandler {
     /**
      * 文档生成
      */
-    public static String generator(Doc doc) {
+    public static SavePath generator(Doc doc) {
         XWPFDocument document = new XWPFDocument();
         doc.getTitles().forEach(t -> {
             titleGenerator(document, t);
@@ -58,7 +59,9 @@ public class DocHandler {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return savePath;
+        SavePath result = new SavePath();
+        result.setLocalPath(savePath);
+        return result;
     }
 
     /**

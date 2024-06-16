@@ -1,5 +1,6 @@
 package com.satori.doc.web.controller;
 
+import com.satori.doc.core.model.SavePath;
 import com.satori.doc.model.vo.ResultVO;
 import com.satori.doc.svc.dto.resp.doc.DocListRespDTO;
 import com.satori.doc.svc.dto.resp.doc.DocRespDTO;
@@ -40,8 +41,8 @@ public class DocController {
 
     @GetMapping("/create/{id}")
     public ResultVO<String> create(@PathVariable Long id) {
-        String path = docService.create(id);
-        return ResultVO.success(path);
+        SavePath savePath = docService.create(id);
+        return ResultVO.success(savePath.getLocalPath());
     }
 
     @GetMapping("/list/all")
@@ -54,5 +55,11 @@ public class DocController {
             respList.add(resp);
         });
         return ResultVO.success(respList);
+    }
+
+    @DeleteMapping("/del/{id}")
+    public ResultVO<?> del(@PathVariable("id") Long id){
+        docService.delLogic(id);
+        return ResultVO.success();
     }
 }

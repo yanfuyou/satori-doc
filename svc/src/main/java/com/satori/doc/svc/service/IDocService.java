@@ -1,5 +1,6 @@
 package com.satori.doc.svc.service;
 
+import com.satori.doc.core.model.SavePath;
 import com.satori.doc.model.enums.DocTypeEnum;
 import com.satori.doc.svc.dal.po.DocPO;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -22,7 +23,9 @@ public interface IDocService extends IService<DocPO> {
 
     DocRespDTO get(Long id);
 
-    String create(Long id);
+    SavePath create(Long id);
 
     List<DocListRespDTO> listAll();
+
+    void delLogic(Long id);
 }
