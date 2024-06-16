@@ -40,8 +40,10 @@ const addEle = (type: number) => {
 			content: "",
 			followId: 3,
 			configuration: {
+				align: 1,
 				level: 1,
 				fontConfiguration: {
+					fontStyle: 1,
 					fontFamily: 1,
 					glyph: 4,
 				},
@@ -55,7 +57,9 @@ const addEle = (type: number) => {
 			titleId: null,
 			content: "",
 			configuration: {
+				align: 1,
 				fontConfiguration: {
+					fontStyle: 1,
 					fontFamily: 1,
 					glyph: 4,
 				},
@@ -82,6 +86,13 @@ const showTitleConf = (index: number) => {
 const titleAdd = async (index: number) => {
 	if (index === 0) {
 		dataList.value[index].followId = 0;
+	} else if (!dataList.value[index - 1].isTitle) {
+		for (let i = dataList.value.length - 2; i >= 0; i--) {
+			if (dataList.value[i].isTitle) {
+				dataList.value[index].followId = dataList.value[i].id;
+				break;
+			}
+		}
 	} else {
 		dataList.value[index].followId = dataList.value[index - 1].id;
 	}
@@ -98,6 +109,12 @@ const paragraphAdd = async (index: number) => {
 		dataList.value[index].titleId = dataList.value[index - 1].id;
 	} else {
 		dataList.value[index].followId = dataList.value[index - 1].id;
+		for (let i = dataList.value.length - 2; i >= 0; i--) {
+			if (dataList.value[i].isTitle) {
+				dataList.value[index].titleId = dataList.value[i].id;
+				break;
+			}
+		}
 	}
 	const titleRes: IResponseData<any> = await addParagraph(dataList.value[index]);
 	dataList.value[index].id = titleRes.data;

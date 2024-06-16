@@ -47,3 +47,23 @@ export async function addParagraph(params: IParagraph) {
 		data: params,
 	});
 }
+
+/**
+ * 生成文档
+ */
+export async function createDoc(id: number) {
+	return request({
+		url: `/doc/create/${id}`,
+		method: "GET",
+	});
+}
+
+/**
+ * 删除文档
+ */
+export async function delDoc(id: number) {
+	return request({
+		url: `/doc/del/${id}`,
+		method: "DELETE",
+	});
+}

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
-import { listAll, addDoc } from "./server";
+import { listAll, addDoc, createDoc, delDoc } from "./server";
 import { IDoc } from "./data";
 import { useRouter } from "vue-router";
 
@@ -35,6 +35,18 @@ const editDoc = (docId: number) => {
 		},
 	});
 };
+
+const create = async (id: number) => {
+	const { data } = await createDoc(id);
+	console.log(data);
+};
+
+const del = async (id: number) => {
+	const res = await delDoc(id);
+	console.log(res);
+	listDoc();
+};
+
 onMounted(() => {
 	listDoc();
 });
@@ -50,8 +62,8 @@ onMounted(() => {
 			<el-table-column fixed="right" label="Operations">
 				<template #default="scope">
 					<el-button type="primary" size="small" @click="editDoc(scope.row.id)">编辑</el-button>
-					<el-button type="danger" size="small" @click="editDoc(scope.row.id)">删除</el-button>
-					<el-button type="success" size="small" @click="editDoc(scope.row.id)">导出</el-button>
+					<el-button type="danger" size="small" @click="del(scope.row.id)">删除</el-button>
+					<el-button type="success" size="small" @click="create(scope.row.id)">导出</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
