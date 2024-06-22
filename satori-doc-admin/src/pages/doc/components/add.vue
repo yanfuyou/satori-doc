@@ -4,19 +4,21 @@ import type { FormProps } from "element-plus";
 import { Edit, Check, More } from "@element-plus/icons-vue";
 import { addTitle, addParagraph } from "../server";
 import { IResponseData } from "@/@types/utils.request";
-import { ITitle } from "../data";
+import { ITitle, alignMethod, fontStyle, indentSpecial } from "../data.d";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 const { query } = toRefs(route);
 
 const titleVisible = ref(false);
+const paragraphVisible = ref(false);
 const labelPosition = ref<FormProps["labelPosition"]>("right");
 const formLabelAlign = reactive({
 	name: "",
 	region: "",
 	type: "",
 });
+
 const titleForm = reactive<ITitle>({
 	docId: 1,
 	content: "",
@@ -78,9 +80,15 @@ const elePop = () => {
 };
 
 const curTitleIndex = ref(null);
+const curParagrapIdx = ref(null);
 const showTitleConf = (index: number) => {
 	titleVisible.value = true;
 	curTitleIndex.value = index;
+};
+
+const showPhConf = (idx: number) => {
+	paragraphVisible.value = true;
+	curParagrapIdx.value = idx;
 };
 
 const titleAdd = async (index: number) => {
@@ -205,12 +213,15 @@ onMounted(() => {
 							</el-col>
 						</el-row>
 						<el-row v-else :gutter="5">
-							<el-col :span="20">
+							<el-col :span="18">
 								<el-input v-model="dataList[index].content" type="textarea"></el-input>
 							</el-col>
-
 							<el-col :span="4">
 								<!-- 样式 -->
+								<el-button @click="showPhConf(index)" type="warning" :icon="More" />
+							</el-col>
+							<el-col :span="2">
+								<!-- 添加段落 -->
 								<el-button @click="paragraphAdd(index)" type="success" :icon="Check" circle />
 							</el-col>
 						</el-row>
@@ -244,6 +255,48 @@ onMounted(() => {
 				<div class="dialog-footer">
 					<el-button @click="titleVisible = false">取消</el-button>
 					<el-button type="primary" @click="titleVisible = false">确认</el-button>
+				</div>
+			</template>
+		</el-dialog>
+
+		<el-dialog v-model="paragraphVisible" title="标题设置" width="500">
+			<el-form label-position="top" :model="titleForm">
+				<el-form-item label="字体" :label-width="20">
+					<el-select
+						v-model="dataList[curParagrapIdx].configuration.fontConfiguration.fontFamily"
+						placeholder="请选择字体"
+					>
+						<el-option v-for="item in fontFamily" :key="item.value" :label="item.label" :value="item.value" />
+					</el-select>
+				</el-form-item>
+				<el-form-item label="字号" :label-width="20">
+					<el-select v-model="dataList[curParagrapIdx].configuration.fontConfiguration.glyph" placeholder="请选择字号">
+						<el-option v-for="item in glyph" :key="item.value" :label="item.label" :value="item.value" />
+					</el-select>
+				</el-form-item>
+				<el-form-item label="对齐方式" :label-width="20">
+					<el-select v-model="dataList[curParagrapIdx].configuration.align" placeholder="请选择字号">
+						<el-option v-for="item in alignMethod" :key="item.value" :label="item.label" :value="item.value" />
+					</el-select>
+				</el-form-item>
+				<el-form-item label="字体样式" :label-width="20">
+					<el-select v-model="dataList[curParagrapIdx].configuration.fontConfiguration.style" placeholder="请选择字号">
+						<el-option v-for="item in fontStyle" :key="item.value" :label="item.label" :value="item.value" />
+					</el-select>
+				</el-form-item>
+				<el-form-item label="缩进" :label-width="20">
+					<el-select
+						v-model="dataList[curParagrapIdx].configuration.indentConfiguration.special"
+						placeholder="缩进设置"
+					>
+						<el-option v-for="item in indentSpecial" :key="item.value" :label="item.label" :value="item.value" />
+					</el-select>
+				</el-form-item>
+			</el-form>
+			<template #footer>
+				<div class="dialog-footer">
+					<el-button @click="paragraphVisible = false">取消</el-button>
+					<el-button type="primary" @click="paragraphVisible = false">确认</el-button>
 				</div>
 			</template>
 		</el-dialog>
