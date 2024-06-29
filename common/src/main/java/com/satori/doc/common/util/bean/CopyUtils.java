@@ -7,7 +7,6 @@ import org.springframework.beans.BeansException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 /**
  * @author cat_y
@@ -16,7 +15,7 @@ import java.util.function.BiFunction;
 public class CopyUtils extends BeanUtils {
 
 
-    public static <S, T> T copyProperties(S source, Class<T> target, BiConsumer<S, T> function) throws BeansException {
+    public static <S, T> T copyPropertiesPlus(S source, Class<T> target, BiConsumer<S, T> function) throws BeansException {
         T t = instantiateClass(target);
         copyProperties(source, t);
         if (null != function) {
@@ -27,8 +26,11 @@ public class CopyUtils extends BeanUtils {
 
     public static <S, T> List<T> copyPropertitesList(List<S> sourcelist, Class<T> target, BiConsumer<S, T> function) {
         List<T> resultList = new ArrayList<>();
+        if (null == sourcelist || sourcelist.isEmpty()) {
+            return resultList;
+        }
         for (S s : sourcelist) {
-            T t = copyProperties(s, target, function);
+            T t = copyPropertiesPlus(s, target, function);
             resultList.add(t);
         }
         return resultList;
