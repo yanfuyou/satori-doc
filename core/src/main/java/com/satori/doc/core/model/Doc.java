@@ -2,8 +2,10 @@ package com.satori.doc.core.model;
 
 import com.satori.doc.model.enums.DocTypeEnum;
 import com.satori.doc.model.json.DocConfiguration;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,8 +18,7 @@ import java.util.List;
  * @author cat_y
  * @since 2024-05-31
  */
-@Getter
-@Setter
+@Data
 public class Doc implements Serializable {
 
     /**

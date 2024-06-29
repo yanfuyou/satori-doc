@@ -2,6 +2,7 @@ package com.satori.doc.svc.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.satori.doc.common.util.bean.CopyUtils;
 import com.satori.doc.core.handler.DocHandler;
 import com.satori.doc.core.model.Doc;
 import com.satori.doc.core.model.SavePath;
@@ -107,5 +108,15 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, DocPO> implements IDo
         this.update(Wrappers.lambdaUpdate(DocPO.class)
                 .set(DocPO::getDeleted, true)
                 .eq(DocPO::getId, id));
+    }
+
+    public static void main(String[] args) {
+        Doc doc = new Doc();
+        doc.setType(DocTypeEnum.XLSX);
+        Doc doc1 = CopyUtils.copyProperties(doc, Doc.class, (s, t) -> {
+            t.setName("测试的");
+        });
+        System.out.println(doc1);
+
     }
 }
