@@ -1,5 +1,6 @@
 package com.satori.doc.svc.handler.doc.context;
 
+import com.satori.doc.model.doc.Doc;
 import com.satori.doc.svc.dal.po.DocPO;
 import com.satori.doc.svc.dal.po.ParagraphPO;
 import com.satori.doc.svc.dal.po.TitlePO;
@@ -15,19 +16,14 @@ import java.util.List;
 @Data
 @Component
 public class DocGenerateContext {
+    /**
+     * 文档
+     */
+    private Doc doc;
 
-
-    private DocPO doc;
-
-    private List<TitlePO> titleList;
-
-    private List<ParagraphPO> paragraphList;
-
-    public DocGenerateContext of(DocPO doc, List<TitlePO> titleList, List<ParagraphPO> paragraphList) {
+    public static DocGenerateContext of(Doc doc) {
         DocGenerateContext context = new DocGenerateContext();
         context.setDoc(doc);
-        context.setTitleList(titleList);
-        context.setParagraphList(paragraphList);
         return context;
     }
 }

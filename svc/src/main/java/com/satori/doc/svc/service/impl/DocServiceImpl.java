@@ -2,28 +2,24 @@ package com.satori.doc.svc.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.satori.doc.common.util.bean.CopyUtils;
 import com.satori.doc.core.handler.DocHandler;
-import com.satori.doc.core.model.Doc;
 import com.satori.doc.core.model.SavePath;
+import com.satori.doc.model.doc.Doc;
 import com.satori.doc.model.enums.DocTypeEnum;
 import com.satori.doc.model.enums.ErrCodeEnum;
-import com.satori.doc.svc.dal.po.DocPO;
 import com.satori.doc.svc.dal.mapper.DocMapper;
+import com.satori.doc.svc.dal.po.DocPO;
 import com.satori.doc.svc.dal.po.ParagraphPO;
-import com.satori.doc.svc.dal.po.TitlePO;
 import com.satori.doc.svc.dto.resp.doc.DocListRespDTO;
 import com.satori.doc.svc.dto.resp.doc.DocRespDTO;
-import com.satori.doc.svc.handler.doc.context.DocGenerateContext;
 import com.satori.doc.svc.handler.doc.handler.DocGenerateHandler;
 import com.satori.doc.svc.service.IDocService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.satori.doc.svc.service.IParagraphService;
 import com.satori.doc.svc.service.ITitleService;
-import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
@@ -47,9 +43,6 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, DocPO> implements IDo
     private final ITitleService titleService;
     private final IParagraphService paragraphService;
 
-    @Resource
-    private DocGenerateContext docGenerateContext;
-
     @Override
     public Long save(String name, DocTypeEnum type) {
         DocPO doc = new DocPO();
@@ -69,12 +62,10 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, DocPO> implements IDo
         if (Objects.isNull(doc)) {
             throw ErrCodeEnum.DATA_DOES_NOT_EXIST.buildEx("文档");
         }
-        List<TitlePO> titleList = titleService.list(Wrappers.lambdaQuery(TitlePO.class)
-                .eq(TitlePO::getDocId, id));
         List<ParagraphPO> paragraphList = paragraphService.list(Wrappers.lambdaQuery(ParagraphPO.class)
                 .eq(ParagraphPO::getDocId, id));
-        DocGenerateContext context = docGenerateContext.of(doc, titleList, paragraphList);
-        return DocGenerateHandler.assemble(context);
+        com.satori.doc.model.doc.Doc docModel = DocGenerateHandler.assemble(doc, paragraphList);
+        return CopyUtils.copyPropertiesPlus(docModel, DocRespDTO.class, null);
     }
 
     @Override
@@ -113,10 +104,10 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, DocPO> implements IDo
     public static void main(String[] args) {
         Doc doc = new Doc();
         doc.setType(DocTypeEnum.XLSX);
-        Doc doc1 = CopyUtils.copyProperties(doc, Doc.class, (s, t) -> {
-            t.setName("测试的");
-        });
-        System.out.println(doc1);
+        List<Doc> docs = new ArrayList<>();
+        docs.add(doc);
+        List<Doc> docs1 = CopyUtils.copyPropertitesList(docs, Doc.class, null);
+        System.out.println(docs1);
 
     }
 }

@@ -1,6 +1,7 @@
 package com.satori.doc.model.json;
 
 import com.satori.doc.model.enums.TitleLevelEnum;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -12,8 +13,7 @@ import lombok.ToString;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ToString(callSuper = true)
-public class TitleConfiguration extends BaseConfiguration {
+public class TitleConfiguration extends ParagraphConfiguration {
 
     /**
      * 标题级别

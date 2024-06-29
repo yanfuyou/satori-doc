@@ -1,18 +1,21 @@
-package com.satori.doc.svc.dto.resp.doc;
+package com.satori.doc.model.doc;
 
 import com.satori.doc.model.Paragraph;
-import com.satori.doc.model.Title;
 import com.satori.doc.model.enums.DocTypeEnum;
+import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author cat_y
+ * @date 2024/06/29
+ * @description 文档
  */
 
 @Data
-public class DocRespDTO {
+public class Doc implements Serializable {
     /**
      * 文档id
      */

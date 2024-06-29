@@ -1,23 +1,22 @@
 package com.satori.doc.core.handler;
 
-import com.satori.doc.core.model.Doc;
-import com.satori.doc.core.model.Paragraph;
+
 import com.satori.doc.core.model.SavePath;
-import com.satori.doc.core.model.Title;
-import com.satori.doc.core.factory.DocBeanFactory;
+import com.satori.doc.model.Paragraph;
+import com.satori.doc.model.doc.Doc;
 import com.satori.doc.model.enums.GlyphEnum;
-import com.satori.doc.model.json.*;
-import lombok.NonNull;
+import com.satori.doc.model.json.FontConfiguration;
+import com.satori.doc.model.json.IndentConfiguration;
+import com.satori.doc.model.json.ParagraphConfiguration;
+import com.satori.doc.model.json.TitleConfiguration;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 
 /**
@@ -36,14 +35,9 @@ public class DocHandler {
      */
     public static SavePath generator(Doc doc) {
         XWPFDocument document = new XWPFDocument();
-        doc.getTitles().forEach(t -> {
-            titleGenerator(document, t);
-            t.getParagraphs().forEach(p -> {
-                paragraphGenerator(document, p);
-            });
-        });
+
         // 保存
-        final String savePath = resourcesDir + doc.getSaveName();
+        final String savePath = resourcesDir + doc.getName();
         File file = new File(savePath);
         File parentFile = file.getParentFile();
         if (!parentFile.exists()) {
@@ -69,10 +63,10 @@ public class DocHandler {
      *
      * @param title 标题对象
      */
-    public static void titleGenerator(XWPFDocument document, Title title) {
+    public static void titleGenerator(XWPFDocument document, Paragraph title) {
         XWPFParagraph paragraph = document.createParagraph();
         String content = title.getContent();
-        TitleConfiguration config = title.getConfiguration();
+        TitleConfiguration config = (TitleConfiguration) title.getConfiguration();
         XWPFRun run = paragraph.createRun();
         run.setText(content);
         FontConfiguration fontConfiguration = config.getFontConfiguration();
@@ -96,7 +90,7 @@ public class DocHandler {
      */
     public static void paragraphGenerator(XWPFDocument document, Paragraph paragraph) {
         ParagraphConfiguration config = paragraph.getConfiguration();
-        StringBuilder content = new StringBuilder(paragraph.getContent());
+        StringBuilder content = new StringBuilder();
         XWPFParagraph docParagraph = document.createParagraph();
         XWPFRun run = docParagraph.createRun();
 
