@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.satori.doc.model.po.IdAutoPO;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +24,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName(value = "paragraph",autoResultMap = true)
+@TableName(value = "paragraph", autoResultMap = true)
 public class ParagraphPO extends IdAutoPO {
 
     private static final long serialVersionUID = 1L;
@@ -32,11 +33,6 @@ public class ParagraphPO extends IdAutoPO {
      * 所属文档
      */
     private Long docId;
-
-    /**
-     * 所属标题
-     */
-    private Long titleId;
 
     /**
      * 段落内容
@@ -50,7 +46,17 @@ public class ParagraphPO extends IdAutoPO {
     private ParagraphConfiguration configuration;
 
     /**
-     * 前序id
+     * 标题?
      */
-    private Long followId;
+    private Boolean isTitle;
+
+    /**
+     * 隐藏?
+     */
+    private Boolean hidden;
+
+    /**
+     * 父级ID
+     */
+    private Long parentId;
 }

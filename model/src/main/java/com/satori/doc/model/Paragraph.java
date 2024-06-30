@@ -1,7 +1,9 @@
 package com.satori.doc.model;
 
 import com.satori.doc.model.json.ParagraphConfiguration;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
  */
 
 @Data
+@Builder
 public class Paragraph implements Serializable {
     /**
      * 段落

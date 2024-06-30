@@ -17,7 +17,6 @@ import com.satori.doc.svc.dto.resp.doc.DocRespDTO;
 import com.satori.doc.svc.handler.doc.handler.DocGenerateHandler;
 import com.satori.doc.svc.service.IDocService;
 import com.satori.doc.svc.service.IParagraphService;
-import com.satori.doc.svc.service.ITitleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DuplicateKeyException;
@@ -39,8 +38,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Service
 public class DocServiceImpl extends ServiceImpl<DocMapper, DocPO> implements IDocService {
-
-    private final ITitleService titleService;
     private final IParagraphService paragraphService;
 
     @Override
@@ -63,8 +60,10 @@ public class DocServiceImpl extends ServiceImpl<DocMapper, DocPO> implements IDo
             throw ErrCodeEnum.DATA_DOES_NOT_EXIST.buildEx("文档");
         }
         List<ParagraphPO> paragraphList = paragraphService.list(Wrappers.lambdaQuery(ParagraphPO.class)
-                .eq(ParagraphPO::getDocId, id));
-        com.satori.doc.model.doc.Doc docModel = DocGenerateHandler.assemble(doc, paragraphList);
+                .eq(ParagraphPO::getDocId, id)
+                .eq(ParagraphPO::getHidden, false)
+                .eq(ParagraphPO::getDeleted, false));
+        Doc docModel = DocGenerateHandler.assemble(doc, paragraphList);
         return CopyUtils.copyPropertiesPlus(docModel, DocRespDTO.class, null);
     }
 

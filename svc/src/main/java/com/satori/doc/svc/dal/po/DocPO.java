@@ -1,14 +1,8 @@
 package com.satori.doc.svc.dal.po;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.satori.doc.model.enums.DocTypeEnum;
-import com.satori.doc.model.json.DocConfiguration;
 import com.satori.doc.model.po.IdAutoOptionalPO;
-
-import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,12 +30,6 @@ public class DocPO extends IdAutoOptionalPO {
      * 文档类型
      */
     private DocTypeEnum type;
-
-    /**
-     * 配置,样式等
-     */
-    @TableField(value = "configuration", typeHandler = JacksonTypeHandler.class)
-    private DocConfiguration configuration;
 
     /**
      * 本地路径
